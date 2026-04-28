@@ -1,0 +1,29 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <meta name="robots" content="noindex,follow" />
+    <script>
+      (function () {
+        var l = window.location;
+
+        // Prevent loops if we already redirected
+        if (l.search && l.search.indexOf("?p=") === 0) return;
+
+        // Preserve full intended route (path + query + hash)
+        var redirect = l.pathname + l.search + l.hash;
+
+        // If empty or root, go home (still important for GH Pages edge cases)
+        if (!redirect || redirect === "/") {
+          l.replace("/");
+          return;
+        }
+
+        // Redirect to index with encoded path for SPA restoration
+        l.replace("/?p=" + encodeURIComponent(redirect));
+      })();
+    </script>
+  </head>
+  <body></body>
+</html>
