@@ -6,20 +6,22 @@ This project is a **React-based multilingual website** designed to present the c
 
 ---
 
-# Project Overview
+## Project Overview
 
 The website provides the public-facing platform for ACHI Scaffolding and includes:
 
-- Multilingual architecture
+- Multilingual architecture (English, French, Arabic, Italian)
 - Country-based routing (Lebanon / Italy)
-- SEO optimization (meta tags, canonical URLs, structured data)
+- SEO optimization (meta tags, canonical URLs, structured data, JSON-LD schemas)
+- AI search visibility (llms.txt, AI crawler directives)
+- SPA page view tracking (GA4 via GTM dataLayer)
 - Static prerendering for search engines
 - Performance optimizations (lazy loading, WebP images)
 - 3D model viewer for scaffolding products
 
 ---
 
-# Technology Stack
+## Technology Stack
 
 - **React 18**
 - **Create React App**
@@ -34,82 +36,112 @@ The website provides the public-facing platform for ACHI Scaffolding and include
 
 ---
 
-# Repository Structure
-Frontend/
-├── public/ Static assets (images, sitemap, etc.)
-├── scripts/ Build scripts (sitemap generation, prerendering, image optimization)
+## Repository Structure
+
+```
+├── public/                  Static assets (images, sitemap, robots.txt, llms.txt)
+├── scripts/                 Build scripts (sitemap generation, prerendering, image optimization)
 ├── src/
-│ ├── components/ Shared UI components
-│ ├── pages/ Page-level components
-│ ├── routes/ Main routing configuration
-│ ├── routing/ Language routing helpers
-│ ├── seo/ SEO utilities
-│ ├── translations/Multilingual JSON files
-│ └── utils/ Utility functions
-
-
+│   ├── components/          Shared UI components
+│   ├── pages/               Page-level components
+│   ├── routes/              Main routing configuration
+│   ├── routing/             Language routing helpers
+│   ├── seo/                 SEO utilities, schema data, route SEO config
+│   ├── translations/        Multilingual JSON files
+│   └── utils/               Utility functions
+```
 
 ---
 
-# Getting Started with Create React App
+## SEO & Analytics
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+The site includes a comprehensive SEO setup:
+
+- **Google Analytics 4** (GA4) with GTM integration
+- **Google Tag Manager** (GTM) for tag management
+- **Microsoft Clarity** for heatmaps and session recordings
+- **Structured Data** (JSON-LD): Organization, LocalBusiness, WebPage, WebSite, BreadcrumbList, Service, BlogPosting, FAQPage
+- **AeoJsonLd** component for dynamic JSON-LD injection on SPA navigation
+- **Hreflang tags** for all 4 languages + x-default
+- **Canonical URLs** on every page
+- **Sitemap** auto-generated with `npm run generate:sitemap`
+- **robots.txt** with AI crawler directives (GPTBot, ClaudeBot, PerplexityBot, etc.)
+- **llms.txt** for AI search engine guidance
+- **OG & Twitter meta tags** with image dimensions
+- **Geo meta tags** per locale (Lebanon / Italy)
+- **Keywords meta** per route and language
+- **SPA page view tracking** via `dataLayer.push` on route changes
+
+### SEO Files
+
+| File | Purpose |
+|------|---------|
+| `src/seo/seoConfig.js` | Route-level SEO config (title, description, keywords, canonical) |
+| `src/seo/RouteSeo.jsx` | Helmet-based SEO component injected on every route |
+| `src/seo/schemaData.js` | Shared business data constants for JSON-LD schemas |
+| `src/components/AeoJsonLd.js` | Dynamic JSON-LD injector for page-level schemas |
+| `public/robots.txt` | Crawler directives |
+| `public/llms.txt` | AI crawler guidance |
+| `public/sitemap.xml` | Auto-generated sitemap |
+| `scripts/generateSitemap.js` | Sitemap generator script |
+
+### Google Search Console Setup
+
+1. Get your GSC verification code from [Google Search Console](https://search.google.com/search-console)
+2. Uncomment and replace `YOUR_CODE` in `public/index.html`:
+   ```html
+   <meta name="google-site-verification" content="YOUR_CODE" />
+   ```
+3. Deploy, then submit `https://achiscaffolding.com/sitemap.xml` in GSC
+
+### GTM SPA Tracking Setup
+
+The app pushes `spa_page_view` events to the dataLayer on every route change. To wire this to GA4:
+
+1. In GTM, create a **Custom Event** trigger for event name `spa_page_view`
+2. Create a **GA4 Event** tag using that trigger
+3. Publish the GTM container
+
+---
 
 ## Available Scripts
 
-In the project directory, you can run:
-
 ### `npm start`
 
-Runs the app in development mode.  
+Runs the app in development mode.
 Open http://localhost:3000 to view it in your browser.
-
-The page will reload when you make changes.  
-You may also see any lint errors in the console.
-
----
-
-### `npm test`
-
-Launches the test runner in the interactive watch mode.
-
----
 
 ### `npm run build`
 
 Builds the app for production to the `build` folder.
 
-The build is optimized and minified for best performance.
+### `npm run generate:sitemap`
 
----
+Regenerates `public/sitemap.xml` and copies it to `build/` if the build directory exists.
+
+### `npm test`
+
+Launches the test runner in interactive watch mode.
 
 ### `npm run eject`
 
-Note: this is a one-way operation. Once you eject, you cannot go back.
-
-If you are not satisfied with the build configuration, ejecting will copy all configuration files into the project so you can modify them directly.
+**Note: this is a one-way operation.** Once you eject, you cannot go back.
 
 ---
 
-# Deployment
+## Deployment
 
 The site is deployed using **GitHub Pages**.
 
 Build scripts also generate:
 
-- `sitemap.xml`
-- prerendered HTML pages for search engines
-- optimized WebP images
+- `sitemap.xml` (88 URLs across 4 languages)
+- Prerendered HTML pages for search engines
+- Optimized WebP images
 
 ---
 
-# Learn More
+## Learn More
 
-You can learn more about Create React App here:
-
-https://facebook.github.io/create-react-app/docs/getting-started
-
-React documentation:
-
-https://reactjs.org/
-
+- [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started)
+- [React documentation](https://reactjs.org/)
