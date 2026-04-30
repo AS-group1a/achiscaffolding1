@@ -104,6 +104,32 @@ The app pushes `spa_page_view` events to the dataLayer on every route change. To
 
 ---
 
+## Security
+
+### Content Security Policy (CSP)
+
+A CSP `<meta>` tag is set in `public/index.html` to prevent script injection from unknown domains. GitHub Pages does not support server-side response headers, so the meta tag approach is used instead.
+
+**Allowed sources:**
+
+| Directive | Allowed domains |
+|-----------|----------------|
+| `script-src` | `self`, GTM, Google Analytics, Microsoft Clarity, Cloudflare CDN |
+| `style-src` | `self`, Google Fonts, Cloudflare CDN |
+| `font-src` | `self`, Google Fonts (gstatic), Cloudflare CDN |
+| `img-src` | `self`, Google Analytics, GTM |
+| `connect-src` | `self`, Google Analytics, GTM, Clarity, Open-Meteo, ipapi.co, ipwho.is |
+| `frame-src` | GTM (noscript iframe) |
+| `object-src` | `none` (blocks Flash/plugins) |
+| `base-uri` | `self` (prevents base tag hijacking) |
+| `form-action` | `self` (prevents form hijacking) |
+
+> **Note:** `'unsafe-inline'` is required for `script-src` and `style-src` because Google Tag Manager and Microsoft Clarity inject inline scripts at runtime. This is a known GTM limitation.
+
+**To update the CSP** (e.g. if you add a new third-party service), edit the `Content-Security-Policy` meta tag in `public/index.html` and add the new domain to the appropriate directive, then redeploy with `npm run deploy`.
+
+---
+
 ## Available Scripts
 
 ### `npm start`
