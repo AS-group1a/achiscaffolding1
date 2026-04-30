@@ -60,6 +60,18 @@ function AppRoutesInner({
     initMixedContentGuard()
   }, [navigate, location.pathname])
 
+  // SPA page view tracking for GA4 via GTM dataLayer
+  useEffect(() => {
+    if (typeof window !== "undefined" && window.dataLayer) {
+      window.dataLayer.push({
+        event: "spa_page_view",
+        page_path: location.pathname + (location.search || ""),
+        page_title: document.title,
+        page_location: window.location.href,
+      })
+    }
+  }, [location.pathname, location.search])
+
   useEffect(() => {
     if (headerHeight === 0) return
 

@@ -75,7 +75,14 @@ function getMetaForRoute(routePathname) {
   if (r === "/it/") r = "/"
   else if (r.startsWith("/it/")) r = r.slice(3) || "/"
 
+  if (r === "/fr/") r = "/"
+  else if (r.startsWith("/fr/")) r = r.slice(3) || "/"
+
+  if (r === "/lb/") r = "/"
+  else if (r.startsWith("/lb/")) r = r.slice(3) || "/"
+
   if (r === "/") return { changefreq: "weekly", priority: "1.0" }
+  if (r === "/privacy-policy") return { changefreq: "yearly", priority: "0.3" }
 
   if (r === "/blog") return { changefreq: "monthly", priority: "0.8" }
   if (/^\/blog-post-\d+$/i.test(r)) return { changefreq: "monthly", priority: "0.7" }
@@ -181,6 +188,8 @@ function main() {
     "/blog-post-1",
     "/blog-post-2",
     "/blog-post-3",
+
+    "/privacy-policy",
   ]).map(canonicalPath)
 
   const IT_LOGICAL_ROUTES = uniq([
@@ -246,7 +255,10 @@ function main() {
     const meta = getMetaForRoute(fullPath)
     const loc = joinUrl(SITE_ORIGIN, fullPath)
     const lastmod = safeLastmodForRoute(fullPath)
-    const alternates = [{ hreflang: "it", href: loc }]
+    const alternates = [
+      { hreflang: "it", href: loc },
+      { hreflang: "x-default", href: loc },
+    ]
 
     entries.push({
       loc,

@@ -6,6 +6,7 @@ import {
   getLogicalPathFromLocalizedPath,
   getPathForLocale,
 } from "../utils/langRouting"
+import { BUSINESS, LEBANON, ITALY, CONTACT_POINT } from "./schemaData"
 
 const SITE_ORIGIN = "https://achiscaffolding.com"
 
@@ -119,6 +120,42 @@ const isBlogPostPath = (logicalPath) => {
   return p.startsWith("/blog-post-")
 }
 
+const getRegionData = (locale) => {
+  if (locale === "it") return ITALY
+  return LEBANON
+}
+
+const buildBreadcrumbList = (canonicalUrl, logicalPath, finalTitle) => {
+  if (logicalPath === "/") return null
+
+  const items = [
+    { "@type": "ListItem", position: 1, name: "Home", item: `${SITE_ORIGIN}/` },
+  ]
+
+  const segments = logicalPath.split("/").filter(Boolean)
+  let currentPath = ""
+
+  segments.forEach((seg, idx) => {
+    currentPath += `/${seg}`
+    const isLast = idx === segments.length - 1
+    const name = isLast
+      ? finalTitle.split("|")[0].trim()
+      : seg.replace(/[-_]/g, " ").replace(/\b\w/g, (c) => c.toUpperCase())
+
+    const listItem = { "@type": "ListItem", position: idx + 2, name }
+    if (!isLast) {
+      listItem.item = `${SITE_ORIGIN}${currentPath}`
+    }
+    items.push(listItem)
+  })
+
+  return {
+    "@type": "BreadcrumbList",
+    "@id": `${canonicalUrl}#breadcrumb`,
+    itemListElement: items,
+  }
+}
+
 const buildSchemaGraph = ({
   locale,
   htmlLang,
@@ -130,23 +167,41 @@ const buildSchemaGraph = ({
 }) => {
   const orgId = `${SITE_ORIGIN}/#organization`
   const lbId = `${SITE_ORIGIN}/#localbusiness`
-  const countryName = locale === "it" ? "Italy" : "Lebanon"
+  const region = getRegionData(locale)
+  const businessName = locale === "it" ? ITALY.name : BUSINESS.name
 
   const graph = [
     {
       "@type": "Organization",
       "@id": orgId,
-      url: `${SITE_ORIGIN}/`,
-      name: "ACHI Scaffolding",
-      logo: { "@type": "ImageObject", url: normalizeToSiteOrigin(finalOgImage) || finalOgImage },
+      url: BUSINESS.url,
+      name: BUSINESS.name,
+      alternateName: BUSINESS.alternateName,
+      logo: { "@type": "ImageObject", url: BUSINESS.logo },
+      telephone: LEBANON.telephone,
+      email: LEBANON.email,
+      sameAs: BUSINESS.sameAs,
+      contactPoint: CONTACT_POINT,
     },
     {
       "@type": "LocalBusiness",
       "@id": lbId,
-      url: `${SITE_ORIGIN}/`,
-      name: "ACHI Scaffolding",
+      url: BUSINESS.url,
+      name: businessName,
       parentOrganization: { "@id": orgId },
-      areaServed: [{ "@type": "Country", name: countryName }],
+      image: BUSINESS.logo,
+      telephone: region.telephone,
+      email: region.email,
+      address: region.address,
+      geo: region.geo,
+      openingHoursSpecification: {
+        "@type": "OpeningHoursSpecification",
+        dayOfWeek: ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        opens: locale === "it" ? "08:00" : "08:00",
+        closes: locale === "it" ? "18:00" : "17:00",
+      },
+      priceRange: BUSINESS.priceRange,
+      areaServed: [region.areaServed],
     },
     {
       "@type": "WebPage",
@@ -168,6 +223,14 @@ const buildSchemaGraph = ({
     },
   ]
 
+  // BreadcrumbList for non-homepage routes
+  const breadcrumb = buildBreadcrumbList(canonicalUrl, logicalPath, finalTitle)
+  if (breadcrumb) {
+    graph.push(breadcrumb)
+    // Link webpage to breadcrumb
+    graph[2].breadcrumb = { "@id": breadcrumb["@id"] }
+  }
+
   if (isServicePath(logicalPath)) {
     graph.push({
       "@type": "Service",
@@ -176,7 +239,7 @@ const buildSchemaGraph = ({
       name: finalTitle,
       description: finalDescription,
       provider: { "@id": lbId },
-      areaServed: [{ "@type": "Country", name: countryName }],
+      areaServed: [region.areaServed],
       inLanguage: htmlLang,
     })
   } else if (isBlogPostPath(logicalPath)) {
@@ -238,12 +301,19 @@ const RouteSeo = ({ title, description, ogImage, indexable, canonical: canonical
     finalOgImage,
   })
 
-  const isIt = locale === "it"
-
   const enUrl = `${SITE_ORIGIN}${withLocalePrefix("en", getPathForLocale("en", logicalPath))}`
   const frUrl = `${SITE_ORIGIN}${withLocalePrefix("fr", getPathForLocale("fr", logicalPath))}`
   const arUrl = `${SITE_ORIGIN}${withLocalePrefix("ar", getPathForLocale("ar", logicalPath))}`
   const itUrl = `${SITE_ORIGIN}${withLocalePrefix("it", getPathForLocale("it", logicalPath))}`
+
+  const keywords = routeSEO.keywords || ""
+
+  // Geo meta tags based on locale
+  const isItaly = locale === "it"
+  const geoRegion = isItaly ? "IT-RM" : "LB"
+  const geoPlacename = isItaly ? "Roma, Italia" : "Dbayeh, Lebanon"
+  const geoPosition = isItaly ? "41.9028;12.4964" : "33.9164;35.5574"
+  const icbm = isItaly ? "41.9028, 12.4964" : "33.9164, 35.5574"
 
   return (
     <Helmet>
@@ -252,25 +322,29 @@ const RouteSeo = ({ title, description, ogImage, indexable, canonical: canonical
       <title>{finalTitle}</title>
       <meta name="description" content={finalDescription} />
       <meta name="robots" content={robotsContent} />
+      {keywords && <meta name="keywords" content={keywords} />}
       <link rel="canonical" href={canonicalUrlValue} />
 
-<link rel="alternate" hrefLang="en" href={enUrl} />
-<link rel="alternate" hrefLang="fr" href={frUrl} />
-<link rel="alternate" hrefLang="ar-LB" href={arUrl} />
-<link rel="alternate" hrefLang="it" href={itUrl} />
-<link rel="alternate" hrefLang="x-default" href={enUrl} />
+      <link rel="alternate" hrefLang="en" href={enUrl} />
+      <link rel="alternate" hrefLang="fr" href={frUrl} />
+      <link rel="alternate" hrefLang="ar-LB" href={arUrl} />
+      <link rel="alternate" hrefLang="it" href={itUrl} />
+      <link rel="alternate" hrefLang="x-default" href={enUrl} />
 
-      {isIt && (
-        <>
-          <link rel="alternate" hrefLang="it" href={itUrl} />
-        </>
-      )}
+      {/* Geo meta tags */}
+      <meta name="geo.region" content={geoRegion} />
+      <meta name="geo.placename" content={geoPlacename} />
+      <meta name="geo.position" content={geoPosition} />
+      <meta name="ICBM" content={icbm} />
 
       <meta property="og:type" content="website" />
       <meta property="og:url" content={ogUrl} />
       <meta property="og:title" content={finalTitle} />
       <meta property="og:description" content={finalDescription} />
       <meta property="og:image" content={finalOgImage} />
+      <meta property="og:image:width" content="1200" />
+      <meta property="og:image:height" content="630" />
+      <meta property="og:image:alt" content={finalTitle} />
       <meta property="og:site_name" content={DEFAULT_SEO.siteName} />
 
       <meta property="og:locale" content={hrefLangForOg(locale).replace("-", "_")} />
