@@ -34,25 +34,25 @@ export const ROUTE_SEO_CONFIG = {
       title: "Scaffolding Company in Lebanon | ACHI Scaffolding",
       description:
         "Professional scaffolding services in Lebanon: access systems, shoring, and engineered solutions for construction, restoration, and industrial projects.",
-      keywords: "scaffolding Lebanon, scaffolding company Lebanon, facade scaffolding, suspended scaffolding, shoring Lebanon, construction scaffolding, ACHI Scaffolding",
+      keywords: "scaffolding Lebanon, scaffolding company Lebanon, temporary works contractor Lebanon, facade scaffolding Lebanon, suspended scaffolding Lebanon, shoring Lebanon, propping systems Lebanon, construction scaffolding Beirut, industrial scaffolding Lebanon, scaffolding rental Lebanon, scaffolding installation Lebanon, access scaffolding systems, ACHI Scaffolding",
     },
     fr: {
       title: "Entreprise d'échafaudage au Liban | ACHI",
       description:
         "Services d'échafaudage au Liban : systèmes d'accès, étaiement et solutions techniques pour la construction, la restauration et l'industrie.",
-      keywords: "échafaudage Liban, entreprise échafaudage, étaiement, systèmes d'accès, construction Liban, ACHI",
+      keywords: "échafaudage Liban, entreprise échafaudage Liban, entrepreneur travaux temporaires Liban, échafaudage de façade, échafaudage suspendu, étaiement Liban, location échafaudage Liban, systèmes d'accès construction, ACHI",
     },
     ar: {
       title: "عشي للسقالات | شركة سقالات في لبنان",
       description:
         "خدمات سقالات في لبنان: أنظمة وصول، تدعيم وشدات، وحلول هندسية لمشاريع البناء والترميم والصناعة.",
-      keywords: "سقالات لبنان, شركة سقالات, تدعيم, شدات معدنية, بناء لبنان, عشي للسقالات",
+      keywords: "سقالات لبنان, شركة سقالات لبنان, مقاول أعمال مؤقتة, سقالات واجهات, سقالات معلقة, تدعيم لبنان, دعامات قابلة للضبط, تأجير سقالات, شدات معدنية, بناء لبنان, عشي للسقالات",
     },
     it: {
       title: "Ponteggi & Opere Provvisionali in Italia | ACHI Servizi e Appalti",
       description:
         "Noleggio e montaggio ponteggi, manodopera specializzata e opere provvisionali in tutta Italia. Conformi normative 2026 e Legge 198/2025. Sede Roma. Preventivo 331 800 7652.",
-      keywords: "ponteggi Italia, noleggio ponteggi, montaggio ponteggi Roma, opere provvisionali, manodopera specializzata, ACHI Servizi e Appalti, Legge 198/2025",
+      keywords: "ponteggi Italia, noleggio ponteggi Italia, montaggio ponteggi Roma, ponteggi facciate, ponteggi sospesi, opere provvisionali, puntellamento strutturale, manodopera specializzata ponteggi, subappalto ponteggi, ACHI Servizi e Appalti, Legge 198/2025",
     },
     indexable: true,
   },
@@ -62,7 +62,7 @@ export const ROUTE_SEO_CONFIG = {
       title: "About Us | ACHI Scaffolding",
       description:
         "Learn about ACHI Scaffolding, a leading provider of construction and industrial scaffolding systems, access solutions, and technical expertise.",
-      keywords: "about ACHI Scaffolding, scaffolding company history, scaffolding expertise Lebanon, construction access solutions",
+      keywords: "about ACHI Scaffolding, scaffolding company Lebanon, scaffolding expertise, temporary works contractor, engineering-led scaffolding, construction access solutions, scaffolding safety Lebanon, ACHI Scaffolding team",
     },
     fr: {
       title: "À propos | ACHI",
@@ -95,7 +95,7 @@ export const ROUTE_SEO_CONFIG = {
       title: "Scaffolding Services | ACHI Scaffolding",
       description:
         "Scaffolding installation, dismantling, supervision, rental, and engineered temporary works for construction and industrial projects.",
-      keywords: "scaffolding services, scaffolding installation, scaffolding rental, temporary works, shoring services, scaffolding Lebanon",
+      keywords: "scaffolding services Lebanon, facade scaffolding installation, suspended scaffolding rental, propping and shoring services, indoor scaffolding, high-rise scaffolding, dome scaffolding, circular scaffolding, event scaffolding, industrial scaffolding, roof scaffolding, mobile suspended scaffolding bridges, scaffolding access stairs, loading unloading platforms, scaffolding design Lebanon, ACHI Scaffolding",
     },
     fr: {
       title: "Services d'échafaudage | ACHI",
@@ -176,7 +176,7 @@ export const ROUTE_SEO_CONFIG = {
     en: {
       title: "Industry Sectors | ACHI Scaffolding",
       description: "Construction, restoration, industrial maintenance, infrastructure, and events.",
-      keywords: "scaffolding sectors, construction sector, restoration sector, industrial maintenance, infrastructure scaffolding, event scaffolding",
+      keywords: "scaffolding sectors Lebanon, renovation scaffolding, construction scaffolding, dome scaffolding Lebanon, church scaffolding, event scaffolding Lebanon, industrial scaffolding Lebanon, oil and gas scaffolding, marine scaffolding, offshore scaffolding, infrastructure scaffolding, ACHI Scaffolding",
     },
     fr: {
       title: "Secteurs | ACHI",
@@ -206,7 +206,7 @@ export const ROUTE_SEO_CONFIG = {
     en: {
       title: "Project Gallery | ACHI Scaffolding",
       description: "Scaffolding installations and project highlights.",
-      keywords: "scaffolding gallery, project photos, scaffolding installations, construction gallery",
+      keywords: "scaffolding gallery Lebanon, scaffolding project photos, facade scaffolding photos, suspended scaffolding images, industrial scaffolding gallery, dome scaffolding Lebanon, ACHI Scaffolding projects",
     },
     fr: {
       title: "Galerie | ACHI",
@@ -251,17 +251,17 @@ export const ROUTE_SEO_CONFIG = {
     en: {
       title: "Blog Post | ACHI Scaffolding",
       description: "Scaffolding and temporary works insights.",
-      keywords: "scaffolding article, temporary works, construction insights",
+      keywords: "scaffolding Lebanon regulation, scaffolding standards Lebanon, scaffolding industry Lebanon, construction safety Lebanon, scaffolding compliance, temporary works Lebanon, engineering-led scaffolding",
     },
     fr: {
       title: "Article | ACHI",
       description: "Échafaudage et travaux temporaires : conseils.",
-      keywords: "article échafaudage, travaux temporaires, conseils",
+      keywords: "réglementation échafaudage Liban, normes échafaudage, industrie échafaudage Liban, sécurité construction Liban, travaux temporaires, échafaudage conformité",
     },
     ar: {
       title: "مقال | عشي للسقالات",
       description: "محتوى عن السقالات والأعمال المؤقتة.",
-      keywords: "مقال سقالات, أعمال مؤقتة",
+      keywords: "تنظيم سقالات لبنان, معايير سقالات, صناعة سقالات لبنان, سلامة البناء, أعمال مؤقتة, الامتثال للسقالات",
     },
     indexable: true,
   },
@@ -270,17 +270,17 @@ export const ROUTE_SEO_CONFIG = {
     en: {
       title: "Blog Post | ACHI Scaffolding",
       description: "Scaffolding and temporary works insights.",
-      keywords: "scaffolding article, temporary works, construction insights",
+      keywords: "temporary works construction, what are temporary works, temporary works definition, shoring systems, propping systems, formwork, scaffolding temporary works, construction site safety",
     },
     fr: {
       title: "Article | ACHI",
       description: "Échafaudage et travaux temporaires : conseils.",
-      keywords: "article échafaudage, travaux temporaires, conseils",
+      keywords: "travaux temporaires construction, définition travaux temporaires, étaiement, systèmes de puntage, coffrage, sécurité chantier, échafaudage temporaire",
     },
     ar: {
       title: "مقال | عشي للسقالات",
       description: "محتوى عن السقالات والأعمال المؤقتة.",
-      keywords: "مقال سقالات, أعمال مؤقتة",
+      keywords: "أعمال مؤقتة في البناء, ما هي الأعمال المؤقتة, تعريف أعمال مؤقتة, أنظمة التدعيم, دعامات, قوالب, سلامة موقع البناء",
     },
     indexable: true,
   },
@@ -289,17 +289,17 @@ export const ROUTE_SEO_CONFIG = {
     en: {
       title: "Blog Post | ACHI Scaffolding",
       description: "Scaffolding and temporary works insights.",
-      keywords: "scaffolding article, temporary works, construction insights",
+      keywords: "scaffolding occupied buildings, scaffolding residential buildings, safe access scaffolding, scaffolding without disruption, construction access occupied site, scaffolding tenants safety, scaffolding installation planning",
     },
     fr: {
       title: "Article | ACHI",
       description: "Échafaudage et travaux temporaires : conseils.",
-      keywords: "article échafaudage, travaux temporaires, conseils",
+      keywords: "échafaudage bâtiments occupés, accès sécurisé échafaudage, échafaudage résidentiel, travaux sans perturbation, échafaudage locataires, planification installation échafaudage",
     },
     ar: {
       title: "مقال | عشي للسقالات",
       description: "محتوى عن السقالات والأعمال المؤقتة.",
-      keywords: "مقال سقالات, أعمال مؤقتة",
+      keywords: "سقالات مبانٍ مأهولة, وصول آمن للسقالات, سقالات مباني سكنية, أعمال بدون تعطيل, سلامة المستأجرين, تخطيط تركيب السقالات",
     },
     indexable: true,
   },
